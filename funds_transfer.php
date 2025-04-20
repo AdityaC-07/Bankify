@@ -29,6 +29,27 @@ if ($con->connect_error) {
 
 $ar = $con->query("SELECT * FROM useraccounts WHERE id = '$_SESSION[userid]'");
 $userData = $ar->fetch_assoc();
+
+// Define the setBalance function
+function setBalance($amount, $type, $accountNo) {
+    global $con;
+    if ($type === 'debit') {
+        $query = "UPDATE useraccounts SET deposit = deposit - $amount WHERE accountno = '$accountNo'";
+    } elseif ($type === 'credit') {
+        $query = "UPDATE useraccounts SET deposit = deposit + $amount WHERE accountno = '$accountNo'";
+    } else {
+        return false;
+    }
+    return $con->query($query);
+}
+
+// Define the makeTransaction function
+function makeTransaction($action, $amount, $otherAccountNo) {
+    global $con, $userData;
+    $userId = $userData['id'];
+    $query = "INSERT INTO transaction (userid, action, debit, other) VALUES ('$userId', '$action', '$amount', '$otherAccountNo')";
+    return $con->query($query);
+}
 ?>
 
 <body>
