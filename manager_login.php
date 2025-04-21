@@ -41,7 +41,7 @@ if (isset($_POST['login'])) {
     
     <style>
         body {
-            background-image: url('image.png');
+            background-image: url('image.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
