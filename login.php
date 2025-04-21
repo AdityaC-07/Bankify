@@ -7,18 +7,40 @@
     <link href="images/bankify_symbol.jpg" rel="icon">
     <link href="images/bankify_symbol.jpg" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="bankify.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url('images/bankify_background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .form.login-form {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            margin-top: 100px;
+        }
+
+        .login-panel {
+            text-align: center !important;
+        }
+    </style>
 </head>
 
 <?php
     $con = new mysqli('localhost', 'root', '', 'bankify');
-   
+
     $error = "";
     if (isset($_POST['userlogin'])) {
         $error = "";
         $user = $_POST['email'];
         $pass = $_POST['password'];
-       
+
         $result = $con->query("SELECT * FROM userAccounts WHERE email='$user' AND password='$pass'");
         if ($result->num_rows > 0) { 
             session_start();
@@ -32,21 +54,14 @@
     }
 ?>
 
-<body scroll="no" style="overflow: hidden">
-    <div class="image">
-        <img src="images/bankify_background.jpg" alt="Bankify Background">
-    </div>
+<body scroll="no">
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4 form login-form">
                 <form method="POST" autocomplete="">
                     <h2 class="login-panel">User Login</h2>
                     <p class="login-panel">Login with your email and password.</p>
-                    <style>
-                        .login-panel {
-                            text-align: center !important;
-                        }
-                    </style>
+
                     <div class="form-group">
                         <input class="form-control" type="email" name="email" placeholder="Email Address" required>
                     </div>
@@ -54,9 +69,11 @@
                         <input class="form-control" type="password" name="password" placeholder="Password" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control button" type="submit" name="userlogin" value="Login">
+                        <input class="form-control button btn btn-primary" type="submit" name="userlogin" value="Login">
                     </div>
-                    <div class="link login-link login-panel">Not a member? <a href="manager_login.php">Manager Login</a></div>
+                    <div class="link login-link login-panel">
+                        Not a member? <a href="manager_login.php">Manager Login</a>
+                    </div>
                 </form>
             </div>
         </div>
