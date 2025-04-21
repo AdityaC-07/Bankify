@@ -1,5 +1,5 @@
 <?php
-$con = new mysqli('localhost', 'root', '', 'charusat_bank');
+$con = new mysqli('localhost', 'root', '', 'bankify');
 if (isset($_POST['cashierLogin'])) {
     $error = "";
     $user = $_POST['email'];
@@ -29,7 +29,7 @@ if (isset($_POST['cashierLogin'])) {
 
     <style>
         body {
-            background-image: url('charusat_bank.jpg');
+            background-image: url('image.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
