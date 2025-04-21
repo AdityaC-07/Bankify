@@ -10,7 +10,7 @@
 
     <style>
         body {
-            background-image: url('images/bankify_background.jpg');
+            background-image: url('image.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
