@@ -141,7 +141,7 @@ if(!isset($_SESSION['cashid'])){ header('location:cashier_index.php');}
 
       /* Applying the background image */
       body {
-        background-image: url('assets/img/background.jpg');
+        background-image: url('cashier.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
