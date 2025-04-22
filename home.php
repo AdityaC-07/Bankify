@@ -22,6 +22,55 @@ $userData = $ar->fetch_assoc();
   <link rel="stylesheet" href="assets/css/bankify.css">
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      background-image: url('assets/images/banking-bg.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    .container {
+      margin-top: 2rem;
+    }
+    
+    .card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .animated-text {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0;
+      animation: typing 3.5s steps(40, end);
+    }
+    
+    .welcome-subtitle {
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+      animation-delay: 1s;
+    }
+    
+    .notification-box {
+      border-left: 4px solid #dc3545;
+      padding-left: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
@@ -55,20 +104,22 @@ $userData = $ar->fetch_assoc();
 
 <div class="container mt-4">
   <div class="card p-4">
-    <h2>Welcome to Bankify</h2>
-    <p><strong>Bankify</strong> is the biggest commercial bank in India. It is a private sector bank with 16 regional hubs and 57 zonal offices across the country.</p>
+    <h2 class="animated-text">Welcome to Bankify</h2>
+    <p class="welcome-subtitle"><strong>Bankify</strong> is the biggest commercial bank in India. It is a private sector bank with 16 regional hubs and 57 zonal offices across the country.</p>
 
-    <p><span style="color: red; font-weight: bold;">Latest Notification:</span><br>
-      <?php
-        $noticeResult = $con->query("SELECT * FROM notice WHERE userid = '$_SESSION[userid]' ORDER BY time DESC");
-        if ($noticeResult->num_rows > 0) {
-          $row = $noticeResult->fetch_assoc();
-          echo $row['notice'];
-        } else {
-          echo "Notice box empty";
-        }
-      ?>
-    </p>
+    <div class="notification-box">
+      <p><span style="color: red; font-weight: bold;">Latest Notification:</span><br>
+        <?php
+          $noticeResult = $con->query("SELECT * FROM notice WHERE userid = '$_SESSION[userid]' ORDER BY time DESC");
+          if ($noticeResult->num_rows > 0) {
+            $row = $noticeResult->fetch_assoc();
+            echo $row['notice'];
+          } else {
+            echo "Notice box empty";
+          }
+        ?>
+      </p>
+    </div>
   </div>
 </div>
 
