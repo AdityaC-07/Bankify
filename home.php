@@ -168,7 +168,6 @@ $financialTips = [
   <div id="navbarCollapse" class="collapse navbar-collapse justify-content-between">
     <div class="navbar-nav">
       <a href="home.php" class="nav-item nav-link active">Home</a>
-      <a href="account.php" class="nav-item nav-link">Accounts</a>
       <a href="statement.php" class="nav-item nav-link">Statements</a>
       <a href="funds_transfer.php" class="nav-item nav-link">Funds Transfer</a>
     </div>
