@@ -64,7 +64,6 @@ function makeTransaction($action, $amount, $otherAccountNo) {
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
             <a href="home.php" class="nav-item nav-link">Home</a>
-            <a href="account.php" class="nav-item nav-link">Accounts</a>
             <a href="statement.php" class="nav-item nav-link">Account Statements</a>
             <a href="funds_transfer.php" class="nav-item nav-link active">Funds Transfer</a>
         </div>
