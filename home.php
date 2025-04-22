@@ -12,9 +12,6 @@ $con = new mysqli('localhost', 'root', '', 'bankify');
 $ar = $con->query("SELECT * FROM useraccounts WHERE id = '$_SESSION[userid]'");
 $userData = $ar->fetch_assoc();
 
-// Get recent transactions for the dashboard
-$recentTransactions = $con->query("SELECT * FROM transactions WHERE userid = '$_SESSION[userid]' ORDER BY date DESC LIMIT 3");
-
 // Get current offers
 $currentOffers = [
     [
@@ -55,7 +52,7 @@ $financialTips = [
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     body {
-      background-image: url('assets/images/banking-bg.jpg');
+      background-image: url('home.jpg');
       background-size: cover;
       background-attachment: fixed;
       background-position: center;
@@ -109,31 +106,6 @@ $financialTips = [
       background-color: rgba(0, 123, 255, 0.05);
     }
     
-    .transaction-row {
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .transaction-row:last-child {
-      border-bottom: none;
-    }
-    
-    .quick-links {
-      background-color: rgba(0, 123, 255, 0.7);
-      color: white;
-      border-radius: 10px;
-      padding: 15px;
-    }
-    
-    .quick-links a {
-      color: white;
-      text-decoration: none;
-    }
-    
-    .quick-links a:hover {
-      text-decoration: underline;
-    }
-    
     .tip-item {
       opacity: 0;
       animation: fadeIn 1s ease-in-out forwards;
@@ -154,23 +126,28 @@ $financialTips = [
       to { opacity: 1; transform: translateY(0); }
     }
     
-    .btn-bankify {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-bankify:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
-      color: white;
-    }
-    
     .icon-container {
       font-size: 2rem;
       color: #007bff;
       margin-bottom: 15px;
+    }
+    
+    .account-summary-card {
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .account-balance {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #28a745;
+      margin: 1.5rem 0;
+    }
+    
+    .account-number {
+      font-size: 1.2rem;
+      color: #6c757d;
+      margin-bottom: 1rem;
     }
     
     .footer {
@@ -232,60 +209,19 @@ $financialTips = [
     </div>
   </div>
   
-  <!-- Account Summary & Quick Links -->
-  <div class="row">
-    <!-- Account Summary -->
-    <div class="col-md-8">
-      <div class="card p-4">
-        <h4><i class="fas fa-chart-line mr-2"></i> Account Summary</h4>
-        <div class="row mt-3">
-          <div class="col-md-6">
-            <div class="card p-3 feature-card">
-              <h5>Savings Account</h5>
-              <p class="text-muted">Account #: <?php echo substr($userData['accountno'], 0, 4) . '****' . substr($userData['accountno'], -4); ?></p>
-              <h3 class="text-success">₹<?php echo $userData['deposit']; ?></h3>
-              <a href="statement.php" class="btn btn-sm btn-outline-primary mt-2">View Transactions</a>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card p-3 feature-card">
-              <h5>Recent Transactions</h5>
-              <div class="transaction-list">
-                <?php 
-                if ($recentTransactions->num_rows > 0) {
-                  while($row = $recentTransactions->fetch_assoc()) {
-                    echo '<div class="transaction-row">';
-                    echo '<small class="text-muted">' . date('d M Y', strtotime($row['date'])) . '</small>';
-                    echo '<p class="mb-0">' . $row['description'] . '</p>';
-                    if ($row['type'] == 'credit') {
-                      echo '<p class="text-success mb-0">+₹' . $row['amount'] . '</p>';
-                    } else {
-                      echo '<p class="text-danger mb-0">-₹' . $row['amount'] . '</p>';
-                    }
-                    echo '</div>';
-                  }
-                } else {
-                  echo '<p>No recent transactions</p>';
-                }
-                ?>
-              </div>
-              <a href="statement.php" class="btn btn-sm btn-outline-primary mt-3">View All</a>
-            </div>
-          </div>
-        </div>
+  <!-- Account Summary - Enlarged -->
+  <div class="card">
+    <div class="account-summary-card">
+      <h3><i class="fas fa-chart-line mr-2"></i> Account Summary</h3>
+      <div class="account-number">
+        Account #: <?php echo substr($userData['accountno'], 0, 4) . '****' . substr($userData['accountno'], -4); ?>
       </div>
-    </div>
-    
-    <!-- Quick Links -->
-    <div class="col-md-4">
-      <div class="quick-links">
-        <h4><i class="fas fa-bolt mr-2"></i> Quick Actions</h4>
-        <div class="list-group mt-3">
-          <a href="funds_transfer.php" class="list-group-item list-group-item-action"><i class="fas fa-exchange-alt mr-2"></i> Transfer Money</a>
-          <a href="bill_payment.php" class="list-group-item list-group-item-action"><i class="fas fa-file-invoice mr-2"></i> Pay Bills</a>
-          <a href="fixed_deposit.php" class="list-group-item list-group-item-action"><i class="fas fa-piggy-bank mr-2"></i> Open Fixed Deposit</a>
-          <a href="loan_application.php" class="list-group-item list-group-item-action"><i class="fas fa-hand-holding-usd mr-2"></i> Apply for Loan</a>
-          <a href="credit_card.php" class="list-group-item list-group-item-action"><i class="fas fa-credit-card mr-2"></i> Credit Card Services</a>
+      <div class="account-balance">
+        ₹<?php echo $userData['deposit']; ?>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <a href="statement.php" class="btn btn-lg btn-outline-primary btn-block">View Transactions</a>
         </div>
       </div>
     </div>
@@ -297,13 +233,12 @@ $financialTips = [
     <div class="row mt-3">
       <?php foreach ($currentOffers as $offer): ?>
       <div class="col-md-4 mb-3">
-        <div class="card p-3 offer-card feature-card">
+        <div class="card p-3 offer-card feature-card h-100">
           <div class="icon-container">
             <i class="<?php echo $offer['icon']; ?>"></i>
           </div>
           <h5><?php echo $offer['title']; ?></h5>
           <p><?php echo $offer['description']; ?></p>
-          <button class="btn btn-sm btn-bankify">Learn More</button>
         </div>
       </div>
       <?php endforeach; ?>
@@ -328,50 +263,7 @@ $financialTips = [
         <div class="card p-3 bg-light">
           <h5>Financial Health Check</h5>
           <p>Use our financial health assessment tool to get personalized recommendations for improving your financial wellness.</p>
-          <button class="btn btn-bankify">Start Assessment</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Banking Features -->
-  <div class="card p-4">
-    <h4><i class="fas fa-star mr-2"></i> Our Banking Features</h4>
-    <div class="row mt-3">
-      <div class="col-md-3 mb-3 text-center">
-        <div class="card p-3 feature-card h-100">
-          <div class="icon-container">
-            <i class="fas fa-mobile-alt"></i>
-          </div>
-          <h5>Mobile Banking</h5>
-          <p>Bank anytime, anywhere with our secure mobile app</p>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3 text-center">
-        <div class="card p-3 feature-card h-100">
-          <div class="icon-container">
-            <i class="fas fa-shield-alt"></i>
-          </div>
-          <h5>Secure Banking</h5>
-          <p>Enhanced security with two-factor authentication</p>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3 text-center">
-        <div class="card p-3 feature-card h-100">
-          <div class="icon-container">
-            <i class="fas fa-chart-pie"></i>
-          </div>
-          <h5>Financial Insights</h5>
-          <p>Track spending patterns with smart analytics</p>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3 text-center">
-        <div class="card p-3 feature-card h-100">
-          <div class="icon-container">
-            <i class="fas fa-headset"></i>
-          </div>
-          <h5>24/7 Support</h5>
-          <p>Get assistance anytime via phone or chat</p>
+          <button class="btn btn-primary">Start Assessment</button>
         </div>
       </div>
     </div>
