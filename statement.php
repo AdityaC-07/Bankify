@@ -33,7 +33,8 @@ $userData = $ar->fetch_assoc();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <style>
         body {
-            background-image: url('images/finance-background.jpg');
+            background-color: #f0f0f0;
+            background-image: url('home.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -47,12 +48,12 @@ $userData = $ar->fetch_assoc();
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(255, 255, 255, 0.85);
+            background-color: rgba(240, 240, 240, 0.85);
             z-index: -1;
         }
         
         .navbar {
-            background-color: #1a237e !important;
+            background-color: #333333 !important;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
@@ -68,7 +69,7 @@ $userData = $ar->fetch_assoc();
         
         .navbar-light .navbar-nav .nav-link:hover, 
         .navbar-light .navbar-nav .nav-link.active {
-            color: #ffc107 !important;
+            color: #ffb400 !important;
         }
         
         .logo-img {
@@ -77,19 +78,21 @@ $userData = $ar->fetch_assoc();
         }
         
         .container {
-            margin-top: 30px;
+            margin-top: 2rem;
             margin-bottom: 30px;
         }
         
         .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
             border: none;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
         
         .card-header {
-            background-color: #1a237e;
+            background-color: #333333;
             color: white;
             font-size: 1.25rem;
             font-weight: bold;
@@ -134,9 +137,9 @@ $userData = $ar->fetch_assoc();
         }
         
         .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
-            color: #212529;
+            background-color: #ffb400;
+            border-color: #ffb400;
+            color: #333333;
             font-weight: bold;
         }
         
@@ -164,7 +167,7 @@ $userData = $ar->fetch_assoc();
         .page-title {
             text-align: center;
             margin-bottom: 25px;
-            color: #1a237e;
+            color: #333333;
             font-weight: bold;
         }
         
@@ -176,7 +179,7 @@ $userData = $ar->fetch_assoc();
         
         /* Action Buttons */
         .action-btn {
-            background-color: #1a237e;
+            background-color: #333333;
             color: white;
             border: none;
             padding: 8px 20px;
@@ -186,18 +189,10 @@ $userData = $ar->fetch_assoc();
         }
         
         .action-btn:hover {
-            background-color: #0d47a1;
+            background-color: #555555;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             color: white;
-        }
-        
-        .download-btn {
-            background-color: #28a745;
-        }
-        
-        .download-btn:hover {
-            background-color: #218838;
         }
         
         .print-btn {
@@ -215,9 +210,10 @@ $userData = $ar->fetch_assoc();
             align-items: center;
             margin-bottom: 20px;
             padding: 15px;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             border-radius: 10px;
             flex-wrap: wrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
         .form-group {
@@ -238,71 +234,96 @@ $userData = $ar->fetch_assoc();
             flex-grow: 1;
         }
         
-        .download-section {
-            margin-top: 20px;
-            text-align: center;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
+        /* New Styles */
+        .animated-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0;
+            animation: typing 3.5s steps(40, end);
         }
         
-        .download-title {
-            font-weight: bold;
-            color: #1a237e;
+        .welcome-subtitle {
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+            animation-delay: 1s;
+        }
+        
+        .notification-box {
+            border-left: 4px solid #dc3545;
+            padding-left: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .offer-card {
+            border-left: 4px solid #007bff;
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+        
+        .tip-item {
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        
+        .tip-item:nth-child(1) { animation-delay: 0.5s; }
+        .tip-item:nth-child(2) { animation-delay: 0.7s; }
+        .tip-item:nth-child(3) { animation-delay: 0.9s; }
+        .tip-item:nth-child(4) { animation-delay: 1.1s; }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .icon-container {
+            font-size: 2rem;
+            color: #333333;
             margin-bottom: 15px;
         }
         
-        .format-options {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .format-btn {
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .view-transactions-btn {
+            background-color: transparent;
+            color: #007bff;
+            border: 1px solid #007bff;
+            padding: 8px 30px;
+            border-radius: 30px;
             transition: all 0.3s ease;
-            color: white;
-            font-weight: bold;
+            font-weight: 500;
         }
         
-        .format-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .view-transactions-btn:hover {
+            background-color: #007bff;
             color: white;
             text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
-        .pdf-btn {
-            background-color: #dc3545;
+        .latest-notification {
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            background-color: #fff;
+            margin-bottom: 20px;
         }
         
-        .pdf-btn:hover {
-            background-color: #c82333;
-        }
-        
-        .excel-btn {
-            background-color: #28a745;
-        }
-        
-        .excel-btn:hover {
-            background-color: #218838;
-        }
-        
-        .csv-btn {
-            background-color: #fd7e14;
-        }
-        
-        .csv-btn:hover {
-            background-color: #e76b00;
-        }
-        
-        .format-icon {
-            margin-right: 8px;
-            font-size: 1.2rem;
+        .latest-notification h5 {
+            color: #dc3545;
+            margin-bottom: 10px;
         }
         
         @media (max-width: 768px) {
@@ -325,15 +346,6 @@ $userData = $ar->fetch_assoc();
             .action-btn {
                 margin: 5px 0;
             }
-            
-            .format-options {
-                flex-direction: column;
-            }
-            
-            .format-btn {
-                width: 100%;
-                margin: 5px 0;
-            }
         }
     </style>
 </head>
@@ -350,15 +362,15 @@ $userData = $ar->fetch_assoc();
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
             <a href="home.php" class="nav-item nav-link"><i class="fas fa-home"></i> Home</a>
-            <a href="#" class="nav-item nav-link active"><i class="fas fa-file-invoice"></i> Account Statements</a>
+            <a href="#" class="nav-item nav-link active"><i class="fas fa-file-invoice"></i> Statements</a>
             <a href="funds_transfer.php" class="nav-item nav-link"><i class="fas fa-exchange-alt"></i> Funds Transfer</a>
         </div>
         <div class="navbar-nav ml-auto">
             <a href="#" class="btn btn-warning" data-toggle="tooltip" title="Your current Account Balance">
-                <i class="fas fa-wallet"></i> Balance: Rs.<?php echo number_format($userData['deposit'], 2); ?>
+                <i class="fas fa-wallet"></i> Account Balance: ₹<?php echo number_format($userData['deposit'], 2); ?>
             </a>
             <a href="notice.php" class="nav-item nav-link notifications">
-                <i class="fas fa-bell"></i>
+                <i class="fas fa-bell"></i> Notifications
             </a>
             <div class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
@@ -376,7 +388,17 @@ $userData = $ar->fetch_assoc();
 </nav>
 
 <div class="container">
-    <h2 class="page-title">Your Account Statements</h2>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2>Welcome to Bankify, <?php echo $userData['name']; ?></h2>
+            <p>Bankify is the biggest commercial bank in India. It is a private sector bank with 16 regional hubs and 57 zonal offices across the country.</p>
+            
+            <div class="latest-notification">
+                <h5><i class="fas fa-bell"></i> Latest Notification:</h5>
+                <p>Hope you are enjoying Bankify</p>
+            </div>
+        </div>
+    </div>
     
     <div class="filter-options">
         <div class="form-group">
@@ -413,26 +435,7 @@ $userData = $ar->fetch_assoc();
         </div>
     </div>
     
-    <div class="download-section">
-        <h4 class="download-title"><i class="fas fa-download"></i> Download Transaction Statement</h4>
-        <p>Download your account statement in your preferred format for your records.</p>
-        
-        <div class="format-options">
-            <a href="download_statement.php?format=pdf&userid=<?php echo $_SESSION['userid']; ?>" class="format-btn pdf-btn">
-                <i class="fas fa-file-pdf format-icon"></i> PDF Format
-            </a>
-            
-            <a href="download_statement.php?format=excel&userid=<?php echo $_SESSION['userid']; ?>" class="format-btn excel-btn">
-                <i class="fas fa-file-excel format-icon"></i> Excel Format
-            </a>
-            
-            <a href="download_statement.php?format=csv&userid=<?php echo $_SESSION['userid']; ?>" class="format-btn csv-btn">
-                <i class="fas fa-file-csv format-icon"></i> CSV Format
-            </a>
-        </div>
-    </div>
-    
-    <div class="card mx-auto mt-4">
+    <div class="card mx-auto feature-card" id="transactions">
         <div class="card-header text-center">
             <i class="fas fa-history"></i> Transaction History
         </div>
@@ -442,20 +445,20 @@ $userData = $ar->fetch_assoc();
             if ($array->num_rows > 0) {
                 while ($row = $array->fetch_assoc()) {
                     if ($row['action'] == 'withdraw') {
-                        echo "<div class='alert alert-secondary'><i class='fas fa-arrow-alt-circle-down transaction-icon'></i>You withdrew Rs." . number_format($row['debit'], 2) . " from your account on " . date('F j, Y g:i A', strtotime($row['date'])) . "</div>";
+                        echo "<div class='alert alert-secondary tip-item'><i class='fas fa-arrow-alt-circle-down transaction-icon'></i>You withdrew Rs." . number_format($row['debit'], 2) . " from your account on " . date('F j, Y g:i A', strtotime($row['date'])) . "</div>";
                     }
                     if ($row['action'] == 'deposit') {
-                        echo "<div class='alert alert-success'><i class='fas fa-arrow-alt-circle-up transaction-icon'></i>You deposited Rs." . number_format($row['credit'], 2) . " into your account on " . date('F j, Y g:i A', strtotime($row['date'])) . "</div>";
+                        echo "<div class='alert alert-success tip-item'><i class='fas fa-arrow-alt-circle-up transaction-icon'></i>You deposited Rs." . number_format($row['credit'], 2) . " into your account on " . date('F j, Y g:i A', strtotime($row['date'])) . "</div>";
                     }
                     if ($row['action'] == 'deduction') {
-                        echo "<div class='alert alert-danger'><i class='fas fa-minus-circle transaction-icon'></i>A deduction of Rs." . number_format($row['debit'], 2) . " was made from your account on " . date('F j, Y g:i A', strtotime($row['date'])) . " for $row[other]</div>";
+                        echo "<div class='alert alert-danger tip-item'><i class='fas fa-minus-circle transaction-icon'></i>A deduction of Rs." . number_format($row['debit'], 2) . " was made from your account on " . date('F j, Y g:i A', strtotime($row['date'])) . " for $row[other]</div>";
                     }
                     if ($row['action'] == 'transfer') {
-                        echo "<div class='alert alert-warning'><i class='fas fa-paper-plane transaction-icon'></i>A transfer of Rs." . number_format($row['debit'], 2) . " was made from your account on " . date('F j, Y g:i A', strtotime($row['date'])) . " to account no. $row[other]</div>";
+                        echo "<div class='alert alert-warning tip-item'><i class='fas fa-paper-plane transaction-icon'></i>A transfer of Rs." . number_format($row['debit'], 2) . " was made from your account on " . date('F j, Y g:i A', strtotime($row['date'])) . " to account no. $row[other]</div>";
                     }
                 }
             } else {
-                echo "<div class='alert alert-info'><i class='fas fa-info-circle transaction-icon'></i>No transactions found.</div>";
+                echo "<div class='alert alert-info notification-box'><i class='fas fa-info-circle transaction-icon'></i>No transactions found.</div>";
             }
             ?>
         </div>
